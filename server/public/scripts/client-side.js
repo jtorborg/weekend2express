@@ -13,8 +13,12 @@ $(document).ready(function() {
             song[field.name] = field.value; //getting name and making it a property of song (should happen twice, once for title, once for artist)
         });
 
-        $('#song-list').append('<div>' + song.title + "-" + song.artist + "</div>"); //song objects
+
+
+
+        $('#song-list').append('<div>' + song.title + "-" + song.artist  + song.dateadded +  "</div>"); //song objects
         console.log('song submitted is', song);
+
 
         $.ajax({
             type: 'POST',
@@ -30,6 +34,7 @@ $(document).ready(function() {
             }
         });
     });
+
 });
 
 function getSongs() {
@@ -37,9 +42,9 @@ function getSongs() {
         type: 'GET',
         url: '/songs',
         success: function(songs) {
-            $('#song-list').empty();
+           $('#song-list').empty();
             songs.forEach(function(song) {
-                $("#song-list").append('<div>' + song.title + '-' + song.artist + '</div>');
+                $("#song-list").append('<div>' + song.title + "-" + song.artist + "   " + song.dateadded +  "</div>");
                 console.log(songs);
             });
         },
@@ -47,5 +52,7 @@ function getSongs() {
         error: function() {
             console.log('GET /songs did not work');
         },
+
+
     });
 };
